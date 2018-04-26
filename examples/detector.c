@@ -624,9 +624,9 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             input = fgets(input, 256, stdin);
             if(!input) return;
             strtok(input, "\n");
-            DIR *dirp
-            struct dirent *dp
-            dirp = opendir(input)
+            DIR *dirp;
+            struct dirent *dp;
+            dirp = opendir(input);
             while ((dp = readdir(dirp)) != NULL){
             	image im = load_image_color(dp->d_name,0,0);
             	image sized = letterbox_image(im, net->w, net->h);
@@ -646,6 +646,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 	        	free_image(sized);
 	        	if (filename) break;
 	        }
+	        (void) closedir(dirp);
         //image sized = resize_image(im, net->w, net->h);
         //image sized2 = resize_max(im, net->w);
         //image sized = crop_image(sized2, -((net->w - sized2.w)/2), -((net->h - sized2.h)/2), net->w, net->h);
