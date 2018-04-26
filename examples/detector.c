@@ -629,7 +629,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             dirp = opendir(input);
             char a[256];
             while ((dp = readdir(dirp)) != NULL){
-            	if(dp->d_name!="."){
+            	if(strcmp(dp->d_name,".") != 0){
             		strcpy(a,input);
 	            	image im = load_image_color(strcat(a,dp->d_name),0,0);
 	            	image sized = letterbox_image(im, net->w, net->h);
