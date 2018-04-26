@@ -641,7 +641,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 	            if (nms) do_nms_sort(dets, nboxes, l.classes, nms);
 	        	draw_detections(im, dets, nboxes, thresh, names, alphabet, l.classes);
 	        	free_detections(dets, nboxes);
-	        	save(im, ".");
+	        	save_image(im, ".");
 	        	free_image(im);
 	        	free_image(sized);
 	        	if (filename) break;
