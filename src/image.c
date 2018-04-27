@@ -240,7 +240,7 @@ void draw_detections(image im, detection *dets, int num, float thresh, char **na
 {
 	FILE *fp;
     int i,j;
-    fp = fopen("./result/result.txt","w+");
+    fp = fopen("./result/result.txt","a+");
 	fprintf(fp,"-------------------------------");   
     for(i = 0; i < num; ++i){
         char labelstr[4096] = {0};
