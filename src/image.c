@@ -288,7 +288,7 @@ void draw_detections(image im, detection *dets, int num, float thresh, char **na
             int top   = (b.y-b.h/2.)*im.h;
             int bot   = (b.y+b.h/2.)*im.h;
             printf("small tag:%d %d %d %d\n", left, right, top, bot); 
-            fprintf(fp,"small tag:%d %d %d %d\n", left, right, top, bot);
+            fprintf(fp,"location:%d %d %d %d\n", left, right, top, bot);
 
             if(left < 0) left = 0;
             if(right > im.w-1) right = im.w-1;
