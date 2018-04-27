@@ -238,8 +238,10 @@ image **load_alphabet()
 
 void draw_detections(image im, detection *dets, int num, float thresh, char **names, image **alphabet, int classes)
 {
+	FILE *fp;
     int i,j;
-
+    fp = fopen("./result/result.txt","w+");
+	fprintf(fp,"-------------------------------");   
     for(i = 0; i < num; ++i){
         char labelstr[4096] = {0};
         int class = -1;
@@ -253,6 +255,7 @@ void draw_detections(image im, detection *dets, int num, float thresh, char **na
                     strcat(labelstr, names[j]);
                 }
                 printf("%s: %.0f%%\n", names[j], dets[i].prob[j]*100);
+                fprintf(fp,"%s: %.0f%%\n", names[j], dets[i].prob[j]*100);
             }
         }
         if(class >= 0){
@@ -285,6 +288,7 @@ void draw_detections(image im, detection *dets, int num, float thresh, char **na
             int top   = (b.y-b.h/2.)*im.h;
             int bot   = (b.y+b.h/2.)*im.h;
             printf("small tag:%d %d %d %d\n", left, right, top, bot); 
+            fprintf(fp,"small tag:%d %d %d %d\n", left, right, top, bot);
 
             if(left < 0) left = 0;
             if(right > im.w-1) right = im.w-1;
@@ -308,6 +312,7 @@ void draw_detections(image im, detection *dets, int num, float thresh, char **na
             }
         }
     }
+    fclose(fp);
 }
 
 void transpose_image(image im)
