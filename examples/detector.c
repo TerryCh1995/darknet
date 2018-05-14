@@ -628,8 +628,10 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             struct dirent *dp;
             dirp = opendir(input);
             char a[256];
+            fp = fopen("./result/result.txt","a+");
             while ((dp = readdir(dirp)) != NULL){
             	if((strcmp(dp->d_name,".") && strcmp(dp->d_name,".."))!= 0){
+            		fprintf(fp, "%s\n", dp->d_name);
             		strcpy(a,input);
 	            	image im = load_image_color(strcat(a,dp->d_name),0,0);
 	            	image sized = letterbox_image(im, net->w, net->h);
@@ -651,6 +653,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             		
 				}
 	        }
+	        fclose(fp);
 	        (void) closedir(dirp);
         //image sized = resize_image(im, net->w, net->h);
         //image sized2 = resize_max(im, net->w);
