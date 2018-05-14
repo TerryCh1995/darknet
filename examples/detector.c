@@ -628,8 +628,6 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             struct dirent *dp;
             dirp = opendir(input);
             char a[256];
-            FILE *fp;
-            fp = fopen("./result/result.txt","a+");
             while ((dp = readdir(dirp)) != NULL){
             	if((strcmp(dp->d_name,".") && strcmp(dp->d_name,".."))!= 0){
             		strcpy(a,input);
@@ -641,11 +639,10 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 		            time=what_time_is_it_now();
 		            network_predict(net, X);
 		            printf("%s: Predicted in %f seconds.\n", dp->d_name, what_time_is_it_now()-time);
-		            fprintf(fp, "%s: Predicted in %f seconds.\n", dp->d_name, what_time_is_it_now()-time);
 		            int nboxes = 0;
 		            detection *dets = get_network_boxes(net, im.w, im.h, thresh, hier_thresh, 0, 1, &nboxes);
 		            if (nms) do_nms_sort(dets, nboxes, l.classes, nms);
-		        	draw_detections(im, dets, nboxes, thresh, names, alphabet, l.classes);
+		        	draw_detections(im, dets, nboxes, thresh, names, alphabet, l.classes, dp->d_name);
 		        	free_detections(dets, nboxes);
 		        	save_image(im, ".");
 		        	free_image(im);
@@ -654,7 +651,6 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             		
 				}
 	        }
-	        fclose(fp);
 	        (void) closedir(dirp);
         //image sized = resize_image(im, net->w, net->h);
         //image sized2 = resize_max(im, net->w);

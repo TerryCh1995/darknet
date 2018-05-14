@@ -236,11 +236,12 @@ image **load_alphabet()
     return alphabets;
 }
 
-void draw_detections(image im, detection *dets, int num, float thresh, char **names, image **alphabet, int classes)
+void draw_detections(image im, detection *dets, int num, float thresh, char **names, image **alphabet, int classes, const char *n)
 {
 	FILE *fp;
     int i,j;
     fp = fopen("./result/result.txt","a+");
+    fprintf(fp, "%s\n", n);
     for(i = 0; i < num; ++i){
         char labelstr[4096] = {0};
         int class = -1;
