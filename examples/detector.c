@@ -628,11 +628,10 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             struct dirent *dp;
             dirp = opendir(input);
             char a[256];
-            FILE *fp;
+            
             fp = fopen("./result/result.txt","a+");
             while ((dp = readdir(dirp)) != NULL){
             	if((strcmp(dp->d_name,".") && strcmp(dp->d_name,".."))!= 0){
-            		fprintf(fp, "%s\n", dp->d_name);
             		strcpy(a,input);
 	            	image im = load_image_color(strcat(a,dp->d_name),0,0);
 	            	image sized = letterbox_image(im, net->w, net->h);
@@ -642,6 +641,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 		            time=what_time_is_it_now();
 		            network_predict(net, X);
 		            printf("%s: Predicted in %f seconds.\n", dp->d_name, what_time_is_it_now()-time);
+		            fprintf(fp, "%s: Predicted in %f seconds.\n", dp->d_name, what_time_is_it_now()-time);
 		            int nboxes = 0;
 		            detection *dets = get_network_boxes(net, im.w, im.h, thresh, hier_thresh, 0, 1, &nboxes);
 		            if (nms) do_nms_sort(dets, nboxes, l.classes, nms);
