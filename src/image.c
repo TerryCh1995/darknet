@@ -236,7 +236,7 @@ image **load_alphabet()
     return alphabets;
 }
 
-void draw_detections(image im, detection *dets, int num, float thresh, char **names, image **alphabet, int classes, const char *n)
+void draw_detections(image im, detection *dets, int num, float thresh, char **names, image **alphabet, int classes, char *n)
 {
 	FILE *fp;
     int i,j;
