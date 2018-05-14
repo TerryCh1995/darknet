@@ -628,6 +628,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             struct dirent *dp;
             dirp = opendir(input);
             char a[256];
+            freopen("./result/result.txt","a+",stdout); 
             while ((dp = readdir(dirp)) != NULL){
             	if((strcmp(dp->d_name,".") && strcmp(dp->d_name,".."))!= 0){
             		strcpy(a,input);
@@ -638,11 +639,11 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 		            float *X = sized.data;
 		            time=what_time_is_it_now();
 		            network_predict(net, X);
-		            printf("%s: Predicted in %f seconds.\n", dp->d_name, what_time_is_it_now()-time);
+		            printf("%s\n", dp->d_name);
 		            int nboxes = 0;
 		            detection *dets = get_network_boxes(net, im.w, im.h, thresh, hier_thresh, 0, 1, &nboxes);
 		            if (nms) do_nms_sort(dets, nboxes, l.classes, nms);
-		        	draw_detections(im, dets, nboxes, thresh, names, alphabet, l.classes, dp->d_name);
+		        	draw_detections(im, dets, nboxes, thresh, names, alphabet, l.classes);
 		        	free_detections(dets, nboxes);
 		        	save_image(im, ".");
 		        	free_image(im);
