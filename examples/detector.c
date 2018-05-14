@@ -628,6 +628,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             struct dirent *dp;
             dirp = opendir(input);
             char a[256];
+            FILE *fp;
             fp = fopen("./result/result.txt","a+");
             while ((dp = readdir(dirp)) != NULL){
             	if((strcmp(dp->d_name,".") && strcmp(dp->d_name,".."))!= 0){
